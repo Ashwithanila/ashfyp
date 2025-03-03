@@ -5,6 +5,7 @@ import os
 from profiles import create_profile, get_notes, get_profile
 from form_submit import update_personal_info, add_note, delete_note
 from ask_ai_module import ask_ai #This is what is replacing
+from ai import get_macros
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -104,10 +105,10 @@ def macros():
     profile = st.session_state.profile
     nutrition = st.container(border=True)
     nutrition.header("Macros")
-    # if nutrition.button("Generate with AI"):
-    #     result = get_macros(profile.get("general"), profile.get("goals"))
-    #     profile["nutrition"] = result
-    #     nutrition.success("AI has generated the results.")
+    if nutrition.button("Generate with AI"):
+         result = get_macros(profile.get("general"), profile.get("goals"))
+         profile["nutrition"] = result
+         nutrition.success("AI has generated the results.")
 
     with nutrition.form("nutrition_form", border=False):
         col1, col2, col3, col4 = st.columns(4)
